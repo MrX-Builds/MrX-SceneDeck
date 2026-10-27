@@ -1,7 +1,7 @@
-Floating Mosaic Grid 2.1 for Stash
-==================================
+MrX SceneDeck 2.1.1 for Stash
+=============================
 
-Floating Mosaic Grid is a Stash plugin that displays the current scene as an
+MrX SceneDeck is a Stash plugin that displays the current scene as an
 always-on-top, resizable and clickable contact sheet. It works independently
 from Mosaic Poster and may remain installed alongside it.
 
@@ -45,21 +45,36 @@ REQUIREMENTS
 - Current Chrome or Edge desktop with Document Picture-in-Picture support.
 - Stash opened through http://localhost:9980 or HTTPS.
 
-INSTALLATION
-1. Extract the ZIP.
-2. Replace any existing MosaicFloat6x6 plugin folder with the enclosed folder.
-   The final manifest path must be:
-   .../plugins/MosaicFloat6x6/MosaicFloat6x6.yml
-3. In Stash, open Settings -> Plugins and select Reload plugins.
-4. Refresh the Stash browser page.
-5. Open a scene and make a normal left-click in the video player. The sprite
+INSTALLATION WITH STASH PLUGIN MANAGER (RECOMMENDED)
+1. In Stash, open Settings -> Plugins -> Available Plugins.
+2. Select Add Source.
+3. Enter "MrX SceneDeck" as the source name and use this Source URL:
+   https://raw.githubusercontent.com/MrX-Builds/MrX-SceneDeck/main/index.yml
+4. Save the source, find MrX SceneDeck in Available Plugins and select Install.
+5. Select Reload plugins, then refresh the Stash browser page.
+6. Open a scene and make a normal left-click in the video player. The sprite
    grid appears first; the status changes to High-res when upgrading completes.
 
-UPGRADING FROM VERSION 2.0
-Replace the complete MosaicFloat6x6 folder rather than copying only the
-JavaScript file. Version 2.1 adds MosaicFloat6x6.py and new manifest entries
-that are required for high-resolution generation. Reload plugins and refresh
-the browser page afterward.
+UPDATING WITH STASH PLUGIN MANAGER
+When a newer version is published, open Settings -> Plugins -> Installed
+Plugins and use the available Update action for MrX SceneDeck. Reload plugins
+and refresh the browser page afterward.
+
+MANUAL INSTALLATION
+1. Download and extract the regular release ZIP.
+2. Remove any old MosaicFloat6x6 plugin folder, then copy the enclosed
+   MrXSceneDeck folder into the Stash plugins directory.
+   The final manifest path must be:
+   .../plugins/MrXSceneDeck/MrXSceneDeck.yml
+3. In Stash, open Settings -> Plugins and select Reload plugins.
+4. Refresh the Stash browser page.
+5. Open a scene and make a normal left-click in the video player.
+
+UPGRADING FROM MOSAICFLOAT6X6 2.0 OR 2.1
+Delete the old MosaicFloat6x6 folder and install the complete MrXSceneDeck
+folder. Do not leave both folders installed because Stash would load both
+plugins. The selected grid size is migrated automatically when available.
+Reload plugins and refresh the browser page afterward.
 
 USE
 - Select 4x4 through 8x8 using the buttons at the top of the floater.
@@ -84,7 +99,7 @@ page after changing settings.
 
 HIGH-RESOLUTION CACHE
 Generated files are stored inside:
-.../plugins/MosaicFloat6x6/generated/
+.../plugins/MrXSceneDeck/generated/
 
 They are disposable. Deleting them only causes the selected sheets to be
 generated again when needed. Removing the entire plugin folder also removes
@@ -117,11 +132,13 @@ TROUBLESHOOTING
 - Keep the source Stash tab open; Chrome closes Document PiP with its source.
 
 REMOVE
-Delete the MosaicFloat6x6 folder, reload Stash plugins, and refresh the browser.
+Plugin Manager installation: uninstall MrX SceneDeck from Settings -> Plugins.
+Manual installation: delete the MrXSceneDeck folder. Then reload plugins and
+refresh the browser page.
 
 CREDIT
 Thanks to the Mosaic Poster developer for the first-player-click suggestion and
 browser lifecycle sketch. Mosaic Poster's documented progressive high-resolution
-behavior also helped clarify the desired user experience. Floating Mosaic Grid
+behavior also helped clarify the desired user experience. MrX SceneDeck
 uses its own renderer, backend, cache and parallel extraction implementation;
 it neither calls nor modifies Mosaic Poster.
