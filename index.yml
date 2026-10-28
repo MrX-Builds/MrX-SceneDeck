@@ -1,9 +1,9 @@
 - id: MrXSceneDeck
   name: MrX SceneDeck
-  version: 2.1.1
-  date: 2026-10-12 21:09:10
-  path: https://github.com/MrX-Builds/MrX-SceneDeck/releases/download/v2.1.1/MrXSceneDeck_v2.1.1_plugin-manager.zip
-  sha256: 56f3385a918abc1b2b6dd0fd0bc22dadb509531242ab723c8ac7bdfb73279b8f
+  version: 2.1.2
+  date: 2026-10-28 08:52:18
+  path: https://github.com/MrX-Builds/MrX-SceneDeck/releases/download/v2.1.2/MrXSceneDeck_v2.1.2_plugin-manager.zip
+  sha256: 4c90749e4d6d07013e99682c93f6139fd953fb32184debabdfe53d5248437973
   metadata:
     description: Floating, resizable 4x4-8x8 scene contact sheet with auto-open, click-to-seek, keyboard navigation, and progressive high-resolution images.
     homepage: https://github.com/MrX-Builds/MrX-SceneDeck
