@@ -1,6 +1,6 @@
 name: MrX SceneDeck
 description: Always-on-top clickable 4x4 through 8x8 contact sheet for Stash with progressive high-resolution upgrade.
-version: 2.1.1
+version: 2.1.2
 settings:
   disableAutoOpen:
     displayName: Disable automatic opening

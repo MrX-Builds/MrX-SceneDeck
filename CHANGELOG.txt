@@ -1,6 +1,13 @@
 MrX SceneDeck - Changelog
 =========================
 
+2.1.2
+- Added support for Stash installations served from a URL prefix such as
+  /stash/ behind a reverse proxy.
+- Scene-route detection, GraphQL requests, generated high-resolution assets,
+  sprites and WebVTT requests now resolve from Stash's document base URL.
+- Preserved root-hosted Stash behavior and the internal Python connection.
+
 2.1.1
 - Rebranded the visible floating-window header and title as MrX SceneDeck.
 - Updated the Stash plugin display name and user-facing labels.

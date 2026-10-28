@@ -1,5 +1,5 @@
 /*
-  MrX SceneDeck v2.1.1 - Stash UI plugin.
+  MrX SceneDeck v2.1.2 - Stash UI plugin.
   Shows selectable 4x4 through 8x8 sprite sheets immediately, then upgrades
   them with independently generated and cached high-resolution sheets.
   Does not change Stash metadata or modify Mosaic Poster.
@@ -19,6 +19,17 @@
   const LEGACY_GRID_STORAGE_KEY = 'MosaicFloat6x6.grid';
   const KEYBOARD_SEEK_SECONDS = 5;
   const PLUGIN_ID = 'MrXSceneDeck';
+  const STASH_BASE_URL = (() => {
+    try {
+      const baseElement = document.querySelector('base[href]');
+      const baseValue = baseElement && baseElement.getAttribute('href');
+      const base = new URL(baseValue || '/', window.location.href);
+      if (!base.pathname.endsWith('/')) base.pathname += '/';
+      return base;
+    } catch (_) {
+      return new URL('/', window.location.href);
+    }
+  })();
   let pipWindow = null;
   let pipUi = null;
   let openingPip = false;
@@ -52,8 +63,40 @@
     }
   })();
 
+  function stashUrl(path) {
+    return new URL(String(path || '').replace(/^\/+/, ''), STASH_BASE_URL).toString();
+  }
+
+  function stashResourceUrl(value) {
+    if (!value) return value;
+    const text = String(value);
+    try {
+      if (/^[a-z][a-z0-9+.-]*:/i.test(text) || text.startsWith('//')) {
+        return new URL(text, window.location.href).toString();
+      }
+      const basePath = STASH_BASE_URL.pathname.replace(/\/+$/, '');
+      if (text.startsWith('/') && basePath &&
+          (text === basePath || text.startsWith(basePath + '/'))) {
+        return new URL(text, window.location.origin).toString();
+      }
+      return stashUrl(text);
+    } catch (_) {
+      return text;
+    }
+  }
+
+  function stashRelativePath() {
+    const basePath = STASH_BASE_URL.pathname.replace(/\/+$/, '');
+    const pathname = window.location.pathname;
+    if (basePath && pathname === basePath) return '/';
+    if (basePath && pathname.startsWith(basePath + '/')) {
+      return pathname.slice(basePath.length);
+    }
+    return pathname;
+  }
+
   function sceneId() {
-    const match = location.pathname.match(/^\/scenes\/(\d+)(?:\/|$)/);
+    const match = stashRelativePath().match(/^\/scenes\/(\d+)(?:\/|$)/);
     return match ? match[1] : null;
   }
 
@@ -404,7 +447,7 @@
 
   function fetchSceneInfo(id) {
     if (sceneInfoCache.has(id)) return sceneInfoCache.get(id);
-    const request = fetch('/graphql', {
+    const request = fetch(stashUrl('graphql'), {
       method: 'POST',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
@@ -426,7 +469,7 @@
       const cacheKey = String(oshashEntry && oshashEntry.value || 'scene-' + id)
         .replace(/[^A-Za-z0-9._-]/g, '_');
       return scene ? {
-        sprite: scene.paths && scene.paths.sprite,
+        sprite: stashResourceUrl(scene.paths && scene.paths.sprite),
         duration: Number(firstFile && firstFile.duration) || 0,
         cacheKey
       } : null;
@@ -483,12 +526,12 @@
   }
 
   function highResAssetUrl(cacheKey, size) {
-    return '/plugin/' + PLUGIN_ID + '/assets/generated/' +
-      highResSheetKey(cacheKey, size) + '.jpg';
+    return stashUrl('plugin/' + PLUGIN_ID + '/assets/generated/' +
+      highResSheetKey(cacheKey, size) + '.jpg');
   }
 
   function runPluginOperation(args) {
-    return fetch('/graphql', {
+    return fetch(stashUrl('graphql'), {
       method: 'POST',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
@@ -768,7 +811,7 @@
 
   async function loadPluginConfiguration() {
     try {
-      const response = await fetch('/graphql', {
+      const response = await fetch(stashUrl('graphql'), {
         method: 'POST',
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },

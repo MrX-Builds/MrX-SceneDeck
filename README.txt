@@ -1,4 +1,4 @@
-MrX SceneDeck 2.1.1 for Stash
+MrX SceneDeck 2.1.2 for Stash
 =============================
 
 MrX SceneDeck is a Stash plugin that displays the current scene as an
@@ -33,6 +33,7 @@ FEATURES
 - Closing the floater suppresses automatic reopening until a full page reload.
   Ctrl+Shift+M can still reopen it intentionally.
 - Preserves and refreshes the same floating window across scene navigation.
+- Supports Stash installations served from a URL prefix such as /stash/.
 - Remembers the selected grid size in the browser.
 - Does not modify Stash metadata or Mosaic Poster.
 
